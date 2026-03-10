@@ -1,0 +1,3 @@
+KEY:
+DELAY:200
+COMBO:GUI+l

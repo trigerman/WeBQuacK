@@ -1,0 +1,925 @@
+// Auto-generated from index.html
+#ifndef HTML_PAGE_H
+#define HTML_PAGE_H
+
+const char index_html[] PROGMEM = R"HTMLEOF(
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>P4wnP1 C2</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121c;
+      --card: #1a1a2a;
+      --border: #2a2a3a;
+      --accent: #00ff88;
+      --accent2: #ff3860;
+      --accent3: #3d9eff;
+      --text: #e0e0f0;
+      --muted: #666688;
+      --danger: #ff3860;
+      --success: #00ff88;
+      --warn: #ffcc00;
+      --radius: 12px;
+      --glow: 0 0 20px rgba(0, 255, 136, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Courier New', monospace;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Scanline overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 255, 136, 0.015) 2px,
+          rgba(0, 255, 136, 0.015) 4px);
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #0d0d1a, #12121c);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--accent);
+      text-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+      letter-spacing: 2px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--danger);
+      box-shadow: 0 0 8px var(--danger);
+      animation: pulse-red 1.5s infinite;
+      margin-left: auto;
+    }
+
+    .status-dot.connected {
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulse-green 2s infinite;
+    }
+
+    @keyframes pulse-red {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .3
+      }
+    }
+
+    @keyframes pulse-green {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .5
+      }
+    }
+
+    .status-label {
+      font-size: .7rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab {
+      flex: 1;
+      min-width: 70px;
+      padding: 10px 8px;
+      text-align: center;
+      font-size: .72rem;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all .2s;
+      letter-spacing: .5px;
+      white-space: nowrap;
+    }
+
+    .tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
+    }
+
+    .tab-icon {
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* ── Panels ── */
+    .panel {
+      display: none;
+      padding: 14px;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: .7rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: all .15s;
+      font-weight: bold;
+      letter-spacing: .5px;
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #000;
+      box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+    }
+
+    .btn-accent:active {
+      transform: scale(.96);
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(255, 56, 96, 0.3);
+    }
+
+    .btn-danger:active {
+      transform: scale(.96);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:active {
+      background: var(--border);
+    }
+
+    .btn-warn {
+      background: var(--warn);
+      color: #000;
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+
+    /* ── Inputs ── */
+    textarea,
+    input[type=text],
+    input[type=number] {
+      width: 100%;
+      background: #0d0d16;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Courier New', monospace;
+      font-size: .9rem;
+      padding: 10px 12px;
+      resize: vertical;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    textarea:focus,
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 8px rgba(0, 255, 136, 0.2);
+    }
+
+    textarea {
+      min-height: 90px;
+    }
+
+    /* ── Keyboard panel ── */
+    .quick-keys {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .qk {
+      padding: 10px 4px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Courier New', monospace;
+      font-size: .72rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all .15s;
+    }
+
+    .qk:active {
+      background: var(--accent);
+      color: #000;
+      transform: scale(.95);
+    }
+
+    .qk.red:active {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    /* ── Mouse pad ── */
+    .mousepad-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mouse-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .mbtn {
+      width: 60px;
+      height: 50px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all .15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mbtn:active {
+      background: var(--accent3);
+      color: #fff;
+      transform: scale(.9);
+    }
+
+    .click-btns {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .click-btn {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Courier New', monospace;
+      font-size: .8rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all .15s;
+    }
+
+    .click-btn:active {
+      background: var(--accent3);
+      color: #fff;
+    }
+
+    /* ── Payload list ── */
+    .payload-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .payload-item:hover {
+      border-color: var(--accent);
+    }
+
+    .payload-item:active {
+      background: rgba(0, 255, 136, 0.08);
+    }
+
+    .payload-name {
+      flex: 1;
+      font-size: .85rem;
+      color: var(--text);
+    }
+
+    .payload-run {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-family: 'Courier New', monospace;
+      font-size: .75rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .payload-run:active {
+      transform: scale(.9);
+    }
+
+    .payload-del {
+      background: transparent;
+      color: var(--danger);
+      border: 1px solid var(--danger);
+      padding: 5px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all .15s;
+      margin-left: 8px;
+    }
+
+    .payload-del:hover {
+      background: var(--danger);
+      color: #000;
+    }
+
+
+    /* ── Log terminal ── */
+    .log-box {
+      background: #050508;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      height: 260px;
+      overflow-y: auto;
+      font-size: .75rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: var(--accent);
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--card);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: .8rem;
+      color: var(--accent);
+      z-index: 9000;
+      transition: transform .3s cubic-bezier(.34, 1.56, .64, 1);
+      box-shadow: var(--glow);
+      white-space: nowrap;
+    }
+
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    #toast.error {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    /* ── Settings inputs ── */
+    .settings-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .settings-label {
+      font-size: .7rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .sep {
+      height: 1px;
+      background: var(--border);
+      margin: 14px 0;
+    }
+
+    /* ── Script editor ── */
+    #script-name {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ─────────── HEADER ─────────── -->
+  <header>
+    <div class="logo">⚡ P4wnP1</div>
+    <div>
+      <div class="status-label" id="status-label">CONNECTING...</div>
+    </div>
+    <div class="status-dot" id="status-dot"></div>
+  </header>
+
+  <!-- ─────────── TABS ─────────── -->
+  <div class="tabs" id="tabs">
+    <div class="tab active" onclick="switchTab('keyboard')">
+      <span class="tab-icon">⌨️</span>KEYBOARD
+    </div>
+    <div class="tab" onclick="switchTab('payloads')">
+      <span class="tab-icon">🎯</span>PAYLOADS
+    </div>
+    <div class="tab" onclick="switchTab('mouse')">
+      <span class="tab-icon">🖱️</span>MOUSE
+    </div>
+    <div class="tab" onclick="switchTab('scripts')">
+      <span class="tab-icon">📝</span>SCRIPTS
+    </div>
+    <div class="tab" onclick="switchTab('log')">
+      <span class="tab-icon">📡</span>LOG
+    </div>
+    <div class="tab" onclick="switchTab('settings')">
+      <span class="tab-icon">⚙️</span>CONFIG
+    </div>
+  </div>
+
+  <!-- ═══════════ KEYBOARD ═══════════ -->
+  <div class="panel active" id="panel-keyboard">
+
+    <div class="card">
+      <div class="card-title">⚡ QUICK KEYS</div>
+      <div class="quick-keys">
+        <button class="qk" onclick="sendCmd('GUI_R')">🪟 WIN+R</button>
+        <button class="qk" onclick="sendCmd('GUI_X')">🔧 WIN+X</button>
+        <button class="qk" onclick="sendCmd('CTRL_SHIFT_ESC')">📊 TASK MGR</button>
+        <button class="qk" onclick="sendCmd('ENTER')">↵ ENTER</button>
+        <button class="qk" onclick="sendCmd('TAB')">⇥ TAB</button>
+        <button class="qk" onclick="sendCmd('ESC')">✕ ESC</button>
+        <button class="qk" onclick="sendCmd('COMBO:CTRL+c')">⎋ CTRL+C</button>
+        <button class="qk" onclick="sendCmd('COMBO:CTRL+v')">📋 CTRL+V</button>
+        <button class="qk" onclick="sendCmd('COMBO:CTRL+a')">☰ CTRL+A</button>
+        <button class="qk red" onclick="sendCmd('CTRL_ALT_DEL')">🔴 CTRL+ALT+DEL</button>
+        <button class="qk red" onclick="sendCmd('ALT_F4')">💀 ALT+F4</button>
+        <button class="qk" onclick="sendCmd('BACKSPACE')">⌫ BKSP</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💬 LIVE INJECT</div>
+      <textarea id="live-text" placeholder="Type text to inject on target…" rows="3"></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn btn-accent" style="flex:1" onclick="sendLiveText()">
+          ⚡ INJECT
+        </button>
+        <button class="btn btn-ghost" onclick="sendLiveText(true)">
+          ↵ +ENTER
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🚀 QUICK PAYLOADS</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button class="btn btn-accent btn-full" onclick="runPayload('glitch')">📺 GLITCH PAYLOAD</button>
+        <button class="btn btn-danger btn-full" onclick="runPayload('wifi_dump')">📡 DUMP WIFI PASSWORDS</button>
+        <button class="btn btn-danger btn-full" onclick="runPayload('reverse_shell')">🐚 REVERSE SHELL</button>
+        <button class="btn btn-warn btn-full" onclick="runPayload('add_admin')">👑 ADD ADMIN USER</button>
+        <button class="btn btn-ghost btn-full" onclick="runPayload('lock_screen')">🔒 LOCK SCREEN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PAYLOADS ═══════════ -->
+  <div class="panel" id="panel-payloads">
+    <div class="card">
+      <div class="card-title">🎯 PAYLOAD LIBRARY</div>
+      <div id="payload-list">
+        <div style="color:var(--muted);font-size:.8rem;text-align:center;padding:20px">
+          Loading payloads…
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MOUSE ═══════════ -->
+  <div class="panel" id="panel-mouse">
+    <div class="card">
+      <div class="card-title">🖱️ MOUSE CONTROL</div>
+      <div class="mousepad-wrap">
+        <div class="mouse-row">
+          <div class="mbtn" onclick="mouseMove(0,-30)">▲</div>
+        </div>
+        <div class="mouse-row">
+          <div class="mbtn" onclick="mouseMove(-30,0)">◀</div>
+          <div class="mbtn" style="font-size:.65rem;color:var(--muted)">MOVE</div>
+          <div class="mbtn" onclick="mouseMove(30,0)">▶</div>
+        </div>
+        <div class="mouse-row">
+          <div class="mbtn" onclick="mouseMove(0,30)">▼</div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;margin-top:8px">
+          <span style="font-size:.7rem;color:var(--muted)">STEP:</span>
+          <input type="number" id="mouse-step" value="30" style="width:70px;text-align:center">
+        </div>
+
+        <div class="click-btns" style="width:100%">
+          <button class="click-btn" onclick="mouseClick('L')">LEFT CLICK</button>
+          <button class="click-btn" onclick="mouseClick('M')">MID</button>
+          <button class="click-btn" onclick="mouseClick('R')">RIGHT CLICK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SCRIPTS ═══════════ -->
+  <div class="panel" id="panel-scripts">
+    <div class="card">
+      <div class="card-title">📝 SCRIPT EDITOR</div>
+      <input type="text" id="script-name" placeholder="payload name (no spaces)">
+      <textarea id="script-body" rows="10" placeholder="# Lines are sent one by one to Pro Micro
+# Example:
+GUI_R
+DELAY:800
+KEY:powershell -windowstyle hidden
+ENTER
+DELAY:1500
+KEY:whoami
+ENTER"></textarea>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn btn-accent" style="flex:1" onclick="saveScript()">💾 SAVE</button>
+        <button class="btn btn-ghost" onclick="clearScript()">🗑️ CLEAR</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📖 COMMAND REFERENCE</div>
+      <div style="font-size:.72rem;color:var(--muted);line-height:1.8">
+        <span style="color:var(--accent)">KEY:&lt;text&gt;</span> — Type text<br>
+        <span style="color:var(--accent)">ENTER / TAB / ESC</span> — Key press<br>
+        <span style="color:var(--accent)">GUI_R / GUI_X</span> — Win combos<br>
+        <span style="color:var(--accent)">CTRL_ALT_DEL / ALT_F4</span> — System keys<br>
+        <span style="color:var(--accent)">COMBO:CTRL+c</span> — Any combo<br>
+        <span style="color:var(--accent)">DELAY:500</span> — Wait ms<br>
+        <span style="color:var(--accent)">MOUSE_MOVE:x,y</span> — Move mouse<br>
+        <span style="color:var(--accent)">MOUSE_CLICK:L/R/M</span> — Click<br>
+        <span style="color:var(--muted)"># comment</span> — Ignored line
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ LOG ═══════════ -->
+  <div class="panel" id="panel-log">
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between">
+        <span>📡 COMM LOG</span>
+        <button class="btn btn-ghost" style="padding:2px 10px;font-size:.7rem" onclick="fetchLog()">↻ REFRESH</button>
+      </div>
+      <div class="log-box" id="log-box">Waiting for data…</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SETTINGS ═══════════ -->
+  <div class="panel" id="panel-settings">
+    <div class="card">
+      <div class="card-title">🌐 DEVICE INFO</div>
+      <div style="font-size:.8rem;line-height:2;color:var(--muted)">
+        AP SSID: <span style="color:var(--accent)">P4wnP1</span><br>
+        IP: <span style="color:var(--accent)">192.168.4.1</span><br>
+        Port: <span style="color:var(--accent)">80</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚡ INJECT DELAY (ms)</div>
+      <div class="settings-row">
+        <span class="settings-label">Delay between keystrokes</span>
+        <input type="number" id="inject-delay" value="0" min="0" max="500">
+      </div>
+      <div class="settings-label" style="color:var(--muted);font-size:.7rem">
+        Set to 0 for max speed. Increase if target misses keystrokes.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚠️ DANGER ZONE</div>
+      <button class="btn btn-danger btn-full" onclick="if(confirm('Reset log?')) clearLog()">🗑️ CLEAR LOG</button>
+    </div>
+  </div>
+
+  <!-- ─────────── TOAST ─────────── -->
+  <div id="toast"></div>
+
+  <script>
+    // ─── State ───────────────────────────────────────────────────────────────────
+    let connected = false;
+    let logInterval = null;
+
+    // ─── Init ────────────────────────────────────────────────────────────────────
+    window.addEventListener('load', () => {
+      checkStatus();
+      loadPayloads();
+      setInterval(checkStatus, 5000);
+      // Auto-refresh log when on log tab
+      document.addEventListener('visibilitychange', () => {
+        clearInterval(logInterval);
+        if (!document.hidden) startLogRefresh();
+      });
+      startLogRefresh();
+    });
+
+    function startLogRefresh() {
+      clearInterval(logInterval);
+      logInterval = setInterval(() => {
+        if (document.getElementById('panel-log').classList.contains('active')) {
+          fetchLog();
+        }
+      }, 3000);
+    }
+
+    // ─── Tab switching ───────────────────────────────────────────────────────────
+    function switchTab(name) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('panel-' + name).classList.add('active');
+      event.currentTarget.classList.add('active');
+      if (name === 'log') fetchLog();
+      if (name === 'payloads') loadPayloads();
+    }
+
+    // ─── Status check ────────────────────────────────────────────────────────────
+    async function checkStatus() {
+      try {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 3000);
+        const r = await fetch('/status', { signal: ctrl.signal });
+        clearTimeout(timer);
+        if (r.ok) {
+          connected = true;
+          document.getElementById('status-dot').className = 'status-dot connected';
+          document.getElementById('status-label').textContent = 'CONNECTED';
+        }
+      } catch (e) {
+        connected = false;
+        document.getElementById('status-dot').className = 'status-dot';
+        document.getElementById('status-label').textContent = 'OFFLINE';
+      }
+    }
+
+    // ─── Send single command ─────────────────────────────────────────────────────
+    async function sendCmd(cmd) {
+      try {
+        const r = await fetch('/exec?cmd=' + encodeURIComponent(cmd));
+        const j = await r.json();
+        toast('✓ ' + cmd, false);
+        return j;
+      } catch (e) {
+        toast('✗ ' + e.message, true);
+      }
+    }
+
+    // ─── Live text injection ──────────────────────────────────────────────────────
+    async function sendLiveText(withEnter = false) {
+      const text = document.getElementById('live-text').value;
+      if (!text.trim()) return;
+      await sendCmd('KEY:' + text);
+      if (withEnter) await sendCmd('ENTER');
+      document.getElementById('live-text').value = '';
+    }
+
+    // ─── Payload execution ───────────────────────────────────────────────────────
+    async function runPayload(name) {
+      try {
+        const r = await fetch('/payload?name=' + encodeURIComponent(name));
+        const j = await r.json();
+        if (j.status === 'ok') toast('🎯 RUNNING: ' + name, false);
+        else toast('✗ ' + (j.msg || 'failed'), true);
+      } catch (e) {
+        toast('✗ ' + e.message, true);
+      }
+    }
+
+    // ─── Delete Payload ──────────────────────────────────────────────────────────
+    async function deletePayload(name) {
+      if (!confirm('Delete payload "' + name + '"?')) return;
+      try {
+        const r = await fetch('/delete?name=' + encodeURIComponent(name));
+        const j = await r.json();
+        if (j.status === 'ok') {
+          toast('🗑️ Deleted: ' + name, false);
+          loadPayloads();
+        } else toast('✗ ' + (j.msg || 'failed'), true);
+      } catch (e) {
+        toast('✗ ' + e.message, true);
+      }
+    }
+
+    // ─── Load payload list ────────────────────────────────────────────────────────
+    function formatBytes(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / 1048576).toFixed(1) + ' MB';
+    }
+
+    async function loadPayloads() {
+      try {
+        const r = await fetch('/payloads');
+        const data = await r.json();
+        const el = document.getElementById('payload-list');
+
+        let html = '';
+        if (!data.scripts || !data.scripts.length) {
+          html = '<div style="color:var(--muted);font-size:.8rem;text-align:center;padding:20px">No payloads found.<br>Create one in the SCRIPTS tab.</div>';
+        } else {
+          html = data.scripts.map(s => `
+            <div class="payload-item">
+              <span class="payload-name">📄 ${s.name} <span style="font-size:0.65rem;color:var(--muted);margin-left:8px">${formatBytes(s.size)}</span></span>
+              <div>
+                <button class="payload-run" onclick="runPayload('${s.name}')">▶ RUN</button>
+                <button class="payload-del" onclick="deletePayload('${s.name}')">✕</button>
+              </div>
+            </div>`).join('');
+        }
+
+        // Add storage stats at the bottom
+        const percent = Math.min(100, Math.round((data.used / data.total) * 100)) || 0;
+        html += `
+          <div style="margin-top:15px;padding-top:10px;border-top:1px solid var(--border);font-size:0.75rem;color:var(--muted);display:flex;justify-content:space-between;">
+            <span>STORAGE</span>
+            <span>${formatBytes(data.used)} / ${formatBytes(data.total)} (${percent}%)</span>
+          </div>`;
+
+        el.innerHTML = html;
+        window._fsTotal = data.total;
+        window._fsUsed = data.used;
+      } catch (e) {
+        document.getElementById('payload-list').innerHTML =
+          '<div style="color:var(--danger);font-size:.8rem">Failed to load payload library</div>';
+      }
+    }
+
+    // ─── Mouse ───────────────────────────────────────────────────────────────────
+    function mouseMove(dx, dy) {
+      const step = parseInt(document.getElementById('mouse-step').value) || 30;
+      const scale = step / 30;
+      sendCmd(`MOUSE_MOVE:${Math.round(dx * scale)},${Math.round(dy * scale)}`);
+    }
+    function mouseClick(btn) { sendCmd('MOUSE_CLICK:' + btn); }
+
+    // ─── Script save ─────────────────────────────────────────────────────────────
+    async function saveScript() {
+      const name = document.getElementById('script-name').value.trim();
+      const script = document.getElementById('script-body').value.trim();
+      if (!name || !script) { toast('Fill name and script', true); return; }
+
+      // Calculate byte size roughly constraint limit Check
+      const scriptSize = new Blob([script]).size;
+      const MAX_SCRIPT_SIZE = 1 * 1024 * 1024; // 1 MB limit per script
+      if (scriptSize > MAX_SCRIPT_SIZE) {
+        toast('✗ Script too large (>1MB)', true);
+        return;
+      }
+      if (window._fsTotal && window._fsUsed) {
+        if (window._fsUsed + scriptSize > window._fsTotal) {
+          toast('✗ Not enough storage', true);
+          return;
+        }
+      }
+
+      const fd = new FormData();
+      fd.append('name', name);
+      fd.append('script', script);
+      try {
+        const r = await fetch('/save', { method: 'POST', body: fd });
+        const j = await r.json();
+        if (j.status === 'ok') toast('💾 Saved: ' + name, false);
+        else toast('✗ Save failed', true);
+      } catch (e) {
+        toast('✗ ' + e.message, true);
+      }
+    }
+    function clearScript() {
+      document.getElementById('script-name').value = '';
+      document.getElementById('script-body').value = '';
+    }
+
+    // ─── Log ─────────────────────────────────────────────────────────────────────
+    async function fetchLog() {
+      try {
+        const r = await fetch('/log');
+        const t = await r.text();
+        const el = document.getElementById('log-box');
+        el.textContent = t || '(empty)';
+        el.scrollTop = el.scrollHeight;
+      } catch (e) { }
+    }
+    function clearLog() {
+      document.getElementById('log-box').textContent = '(cleared)';
+    }
+
+    // ─── Toast ───────────────────────────────────────────────────────────────────
+    let toastTimer = null;
+    function toast(msg, isError = false) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.className = 'show' + (isError ? ' error' : '');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.className = '', 2500);
+    }
+  </script>
+</body>
+
+</html>
+)HTMLEOF";
+
+#endif

