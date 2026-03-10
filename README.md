@@ -99,36 +99,27 @@ This uploads the `data/` folder (your web UI + payloads) to the D1 Mini's flash.
 
 ## Step 7 — Wiring
 
-**Single USB — plug ONLY the Pro Micro into the target PC. D1 Mini gets power from Pro Micro.**
+**POWER: Plug EACH board into its OWN USB port. Do NOT share power rails.**
 
 ```
-TARGET PC USB
-      │
-      ▼
- ┌─ Pro Micro ─────────────────────────── D1 Mini Pro ─┐
- │  VCC (right col, pin 4) ──────────────► 5V  (right col, last pin) │
- │  GND (right col, pin 2) ──────────────► GND (right col, 2nd last) │
- │                                                                     │
- │  TXO (left col, pin 1) ──[1kΩ res]───► RX  (right col, pin 2)    │
- │  RXI (left col, pin 2) ◄──────────────  TX  (right col, pin 1)    │
- └─────────────────────────────────────────────────────────────────────┘
-
- Level Shifter (if you have one — more reliable):
-   Pro Micro VCC ──► HV ref       D1 Mini 3V3 ──► LV ref
-   Pro Micro TXO ──► HV1 ──► LV1 ──► D1 Mini RX
-   Pro Micro RXI ◄── HV2 ◄── LV2 ◄── D1 Mini TX
-   GND ◄──────────────────────────────────────────► GND
+   D1 Mini Pro [right col]        Level Shifter    Pro Micro [left col]
+   ───────────────────────        ─────────────    ────────────────────
+   TX  (col 2, pin 1 top)  ─────► HV1 ─► LV1 ───► RXI (col 1, pin 2)
+   RX  (col 2, pin 2)      ◄───── HV2 ◄─ LV2 ◄─── TXO (col 1, pin 1)
+   GND (col 2, pin 7)      ─────────────────────── GND (col 1, pin 3)
+   3V3 (col 1, pin 8 bot)  ─────── LV ref input
+   [Pro Micro VCC]         ─────── HV ref input
 ```
 
-| Wire | From (Pro Micro) | To (D1 Mini Pro) | Notes |
-|---|---|---|---|
-| Power | VCC (right col, pin 4) | 5V (right col, bottom) | Feeds 5V to D1 Mini |
-| Ground | GND (right col, pin 2) | GND (right col, 2nd from bot) | Shared ground |
-| Serial TX→RX | TXO (left col, pin 1) | RX (right col, pin 2) | Use 1kΩ resistor inline |
-| Serial RX←TX | RXI (left col, pin 2) | TX (right col, pin 1) | Direct wire, no resistor |
+| Wire | From (Pro Micro) | Level Shifter | To (D1 Mini Pro) | Notes |
+|---|---|---|---|---|
+| Power (HV Ref) | VCC (5V pin) | HV ref input | - | Reference voltage for Pro Micro |
+| Power (LV Ref) | - | LV ref input | 3V3 (col 1, pin 8 bot) | Reference voltage for ESP8266 |
+| Ground | GND (left col, pin 3) | GND | GND (col 2, pin 7) | Shared ground through shifter |
+| Serial RX←TX | RXI (left col, pin 2) | LV1 ← HV1 | TX (col 2, pin 1 top) | D1 Mini 3.3V signals read by Pro Micro |
+| Serial TX→RX | TXO (left col, pin 1) | HV2 → LV2 | RX (col 2, pin 2) | Pro Micro 5V stepped down to 3.3V |
 
-> ⚠️ The 1kΩ resistor on TXO→RX protects the D1 Mini from Pro Micro's 5V signal. Without it you risk frying the ESP8266's RX pin over time.
-
+> ⚠️ **WHY LEVEL SHIFTER:** Pro Micro TXO uses 5V logic. D1 Mini RX max limit is 3.3V. Providing 5V to the ESP's RX pin without a shifter can permanently damage it! Do not build this without a Logic Level Shifter.
 
 ---
 
