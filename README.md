@@ -1,4 +1,4 @@
-# P4wnP1 Clone — Complete Build Guide
+# WebQuack Clone — Complete Build Guide
 
 ## What You're Building
 
@@ -64,7 +64,7 @@ This uploads the `data/` folder (your web UI + payloads) to the D1 Mini's flash.
 
 ## Step 4 — Flash Pro Micro
 
-1. Open `wifiducky/pro_micro/pro_micro.ino` in Arduino IDE
+1. Open `WebQuack/pro_micro/pro_micro.ino` in Arduino IDE
 2. **Tools > Board > Arduino AVR Boards > Arduino Micro**
    - ⚠️ Select **"Arduino Micro"** not "Leonardo" — Pro Micro uses same chip
 3. **Tools > Port** — select the COM port that appears when you plug in Pro Micro
@@ -77,7 +77,7 @@ This uploads the `data/` folder (your web UI + payloads) to the D1 Mini's flash.
 
 ## Step 5 — Flash D1 Mini Pro (Sketch)
 
-1. Open `wifiducky/d1_mini/d1_mini.ino`
+1. Open `WebQuack/d1_mini/d1_mini.ino`
 2. **Tools > Board > ESP8266 Boards > LOLIN(WEMOS) D1 mini Pro**
 3. **Tools > Upload Speed**: `115200`
 4. **Tools > Flash Size**: `16M (FS:14M OTA:~1019KB)` ← important!
@@ -128,7 +128,7 @@ This uploads the `data/` folder (your web UI + payloads) to the D1 Mini's flash.
 1. Wire boards together as above
 2. **Plug Pro Micro USB into your test PC** (your own PC only!)
 3. **Power D1 Mini via USB** (phone charger or second USB port)
-4. On your phone → WiFi settings → connect to `P4wnP1` (password: `hacker123`)
+4. On your phone → WiFi settings → connect to `WebQuack` (password: `hacker123`)
 5. Open browser → `http://192.168.4.1`
 6. You should see the hacker dashboard
 7. Tap **KEYBOARD tab** → type something in Live Inject → tap **⚡ INJECT**
@@ -139,7 +139,7 @@ This uploads the `data/` folder (your web UI + payloads) to the D1 Mini's flash.
 ## Project File Structure
 
 ```
-wifiducky/
+WebQuack/
 ├── pro_micro/
 │   └── pro_micro.ino          ← Flash to Arduino Pro Micro
 └── d1_mini/

@@ -9,7 +9,7 @@ const char index_html[] PROGMEM = R"HTMLEOF(
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>P4wnP1 C2</title>
+  <title>WebQuack C2</title>
   <style>
     :root {
       --bg: #0a0a0f;
@@ -504,7 +504,7 @@ const char index_html[] PROGMEM = R"HTMLEOF(
 
   <!-- ─────────── HEADER ─────────── -->
   <header>
-    <div class="logo">⚡ P4wnP1</div>
+    <div class="logo">⚡ WebQuack</div>
     <div>
       <div class="status-label" id="status-label">CONNECTING...</div>
     </div>
@@ -674,7 +674,7 @@ ENTER"></textarea>
     <div class="card">
       <div class="card-title">🌐 DEVICE INFO</div>
       <div style="font-size:.8rem;line-height:2;color:var(--muted)">
-        AP SSID: <span style="color:var(--accent)">P4wnP1</span><br>
+        AP SSID: <span style="color:var(--accent)">WebQuack</span><br>
         IP: <span style="color:var(--accent)">192.168.4.1</span><br>
         Port: <span style="color:var(--accent)">80</span>
       </div>

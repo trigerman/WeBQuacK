@@ -1,5 +1,5 @@
 /*
- * P4wnP1 Clone - Pro Micro Firmware
+ * WebQuack Clone - Pro Micro Firmware
  * Board: Arduino Pro Micro (ATmega32U4) 5V/16MHz
  * 
  * Wiring to D1 Mini Pro:

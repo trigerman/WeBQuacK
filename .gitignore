@@ -1,0 +1,2 @@
+# Ignore python cache and Arduino build files
+__pycache__/

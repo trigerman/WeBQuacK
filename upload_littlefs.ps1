@@ -1,4 +1,4 @@
-# P4wnP1 Clone - LittleFS Upload (Uses System Python)
+# WebQuack Clone - LittleFS Upload (Uses System Python)
 # Run: .\upload_littlefs.ps1
 
 $PORT = "COM13"
@@ -12,7 +12,7 @@ $FS_BLOCK = 8192
 $TOOLS = "$env:LOCALAPPDATA\Arduino15\packages\esp8266\tools"
 
 Write-Host ""
-Write-Host "=== P4wnP1 LittleFS Upload ===" -ForegroundColor Cyan
+Write-Host "=== WebQuack LittleFS Upload ===" -ForegroundColor Cyan
 Write-Host "Port: $PORT | Address: $FS_ADDR" -ForegroundColor DarkCyan
 Write-Host ""
 
@@ -40,7 +40,7 @@ if ($LASTEXITCODE -eq 0) {
     Write-Host "=== SUCCESS! Web UI uploaded ===" -ForegroundColor Green
     Write-Host ""
     Write-Host "  1. Unplug D1 Mini -> plug back in" -ForegroundColor White
-    Write-Host "  2. Phone WiFi -> P4wnP1  (password: hacker123)" -ForegroundColor White
+    Write-Host "  2. Phone WiFi -> WebQuack  (password: hacker123)" -ForegroundColor White
     Write-Host "  3. Browser -> http://192.168.4.1" -ForegroundColor White
 }
 else {

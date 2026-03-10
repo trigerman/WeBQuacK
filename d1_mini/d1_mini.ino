@@ -1,5 +1,5 @@
 /*
- * P4wnP1 Clone - Wemos D1 Mini Pro Firmware
+ * WebQuack Clone - Wemos D1 Mini Pro Firmware
  * Board: LOLIN(WEMOS) D1 mini Pro
  *
  * Required Libraries (install via Arduino Library Manager):
@@ -25,7 +25,7 @@
  *
  * After flashing:
  *   1. Run upload_littlefs.ps1 to upload web UI
- *   2. Connect phone to WiFi "P4wnP1" password "hacker123"
+ *   2. Connect phone to WiFi "WebQuack" password "hacker123"
  *   3. Open http://192.168.4.1 in browser
  */
 
@@ -38,7 +38,7 @@
 // ──────────────────────────────────────────────────────────────────────────────
 // Config
 // ──────────────────────────────────────────────────────────────────────────────
-const char* AP_SSID     = "P4wnP1";
+const char* AP_SSID     = "WebQuack";
 const char* AP_PASS     = "hacker123";   // min 8 chars for WPA2
 const IPAddress LOCAL_IP(192, 168, 4, 1);
 const IPAddress GATEWAY(192, 168, 4, 1);
