@@ -1,5 +1,10 @@
 # WebQuack Clone — Complete Build Guide
 
+> [!WARNING]
+> ## ⚠️ FOR EDUCATIONAL PURPOSES ONLY ⚠️
+> This project is created strictly for educational and research purposes. The author is **NOT** responsible for any misuse, damage, or illegal activities carried out with this tool. By using this software or hardware, you agree that you are doing so at your own risk. As this repository is public, I am not liable for how third parties choose to use, modify, or distribute this code.
+
+
 ## What You're Building
 
 ```
@@ -169,9 +174,13 @@ nc -lvnp 4444
 
 ---
 
-## ⚖️ Legal
+## ⚖️ Legal & Disclaimer
 
-Use only on your own systems or systems you have **explicit written permission** to test. Unauthorized HID attacks are illegal under computer fraud laws.
+- **Educational Use Only**: This tool is for learning about HID security and serial communication.
+- **No Liability**: The author assumes no liability and is not responsible for any misuse or damage caused by this program.
+- **Permission Required**: Use only on your own systems or systems you have **explicit written permission** to test. Unauthorized HID attacks are illegal under computer fraud laws.
+- **Public Repository**: Since this code is public, the user takes full responsibility for its application.
+
 
 ---
 
