@@ -1,0 +1,83 @@
+# WebQuack Trojan Mouse Construction Diagram
+
+This diagram outlines how to physically wire the Arduino Pro Micro, D1 Mini Pro, and a generic mouse together using a mini USB Hub, creating a "Trojan Mouse." 
+
+When plugged into a target PC, the system will recognize both the generic mouse and the hidden WebQuack (Pro Micro) keyboard.
+
+```text
+=============================================================================================
+                       WEBQUACK "TROJAN MOUSE" WIRING DIAGRAM
+=============================================================================================
+                                     
+                                ┌──────────────────────────┐
+                                │                          │
+                                │   TARGET PC USB PORT     │
+                                │                          │
+                                └───────┬──────────┬───────┘
+                                       5V         GND
+                                     (Red)      (Black)
+                                       D+         D-
+                                   (Green)      (White)
+                                        │          │
+ ╭──────────────────────────────────────┼──────────┼──────────────────────────────────────╮
+ │ MOUSE PLASTIC SHELL                  │          │                                      │
+ │                                      ▼          ▼                                      │
+ │                            ┌────────────────────────────┐                              │
+ │                            │       MINI USB HUB         │                              │
+ │                            │    (Stripped bare PCB)     │                              │
+ │                            └─┬───┬───────────────┬───┬──┘                              │
+ │                              │   │               │   │                                 │
+ │                              ▼   ▼               ▼   ▼                                 │
+ │                           HUB PORT 1          HUB PORT 2                               │
+ │                               │                   │                                    │
+ │       ┌───────────────────────┴─┐               ┌─┴────────────────────────────┐       │
+ │       │  ORIGINAL MOUSE BOARD   │               │  ARDUINO PRO MICRO           │       │
+ │       │  (Still functions       │               │  (Hidden Keyboard Injector)  │       │
+ │       │   as a normal mouse)    │               │                              │       │
+ │       └─────────────────────────┘               │   TXO ──────────┐            │       │
+ │                                                 │   RXI ◄─────────┼────┐       │       │
+ │                                                 │   VCC ──────────┼────┼───┐   │       │
+ │                                                 │   GND ──────────┼────┼───┼─┐ │       │
+ │                                                 └─────────────────┼────┼───┼─┼─┘       │
+ │                                                                   │    │   │ │         │
+ │                                                                   │    │   │ │         │
+ │                                                 ┌─────────────────┼────┼───┼─┼─┐       │
+ │                                                 │  WEMOS D1 MINI  │    │   │ │ │       │
+ │                                                 │                 ▼    │   │ │ │       │
+ │                                                 │   RX  ◄────[1kΩ]─────┘   │ │ │       │
+ │                                                 │   TX  ───────────────┘   │ │ │       │
+ │                                                 │   5V  ◄──────────────────┘ │ │       │
+ │                                                 │   GND ◄────────────────────┘ │       │
+ │                                                 └──────────────────────────────┘       │
+ │                                                                                        │
+ ╰────────────────────────────────────────────────────────────────────────────────────────╯
+
+=============================================================================================
+WIRING NOTES:
+=============================================================================================
+
+1. THE USB HUB
+   You must use a tiny, inexpensive USB 2.0 hub (e.g., from AliExpress or by cracking open 
+   a cheap dollar-store hub). Remove the plastic casing to make it fit inside the mouse.
+   Solder the mouse's original long USB cable to the Hub's "Input" pads.
+
+2. PORT 1 (The Real Mouse)
+   Solder 4 short wires (5V, GND, D+, D-) from the Hub's Port 1 output pads back to the 
+   original mouse circuit board where the long cable used to attach.
+
+3. PORT 2 (WebQuack)
+   Solder 4 short wires (5V, GND, D+, D-) from the Hub's Port 2 output pads to the USB 
+   pads/pins on the Arduino Pro Micro.
+   * Note: The D+ / D- pins are typically on the underside of a standard Pro Micro, 
+     or you must carefully solder to the microscopic legs of its micro-USB connector.
+
+4. THE D1 MINI PRO
+   Wire the D1 Mini Pro to the Pro Micro exactly as normal WebQuack instructions dictate:
+   - Pro Micro VCC (5V) -> D1 Mini 5V
+   - Pro Micro GND      -> D1 Mini GND
+   - Pro Micro RXI      <- D1 Mini TX
+   - Pro Micro TXO      -> D1 Mini RX (Use a 1k Ohm resistor inline to drop 5V to 3.3V)
+
+5. STEALTH
+   Wrap the Mini Hub, Pro Micro, and D1 Mini Pro separately in Kapton tape or electrical 
+   tape to prevent short circuits before cramming them into the heel of the mouse shell.

@@ -3,7 +3,7 @@
  * Board: LOLIN(WEMOS) D1 mini Pro
  *
  * Required Libraries (install via Arduino Library Manager):
- *   - ESPAsyncWebServer  (c:\Users\dhrup\Downloads\arduino-littlefs-upload-1.6.3.vsixby Me-No-Dev)
+ *   - ESPAsyncWebServer  (arduino-littlefs-upload-1.6.3.vsixby Me-No-Dev)
  *   - ESPAsyncTCP        (by Me-No-Dev)
  *   - LittleFS           (built-in with ESP8266 core >= 3.x)
  *
@@ -79,15 +79,12 @@ void appendLog(const String& line) {
   }
 }
 
-// Send command to Pro Micro - fire and forget (NO blocking wait!)
+// Send command to Pro Micro 
 void sendToProMicro(const String& cmd) {
-  Serial.println(cmd);          // Send and immediately return
-  appendLog(">> " + cmd);      // Log it
-  // NOTE: We do NOT wait for a reply - waiting blocks the WiFi stack
-  //       and triggers a watchdog reset (WiFi disconnect/reconnect)
+  Serial.println(cmd);   
+  appendLog(">> " + cmd); 
 }
 
-// Start a multi-line payload script for processing in the loop
 void runPayloadScript(const String& script) {
   payloadScript = script;
   payloadPos = 0;
@@ -118,7 +115,7 @@ void setup() {
 
   // ── Routes ────────────────────────────────────────────────────────────────
 
-  // Serve UI from PROGMEM (bypasses LittleFS path issues)
+  
   server.on("/", HTTP_GET, [](AsyncWebServerRequest* req) {
     req->send_P(200, "text/html", index_html);
   });
@@ -128,7 +125,7 @@ void setup() {
   });
 
 
-  // GET /exec?cmd=GUI_R — execute a single command
+  
   server.on("/exec", HTTP_GET, [](AsyncWebServerRequest* req) {
     if (req->hasParam("cmd")) {
       String cmd = req->getParam("cmd")->value();
@@ -141,7 +138,7 @@ void setup() {
     }
   });
 
-  // GET /payload?name=wifi_dump — run a named payload
+  
   server.on("/payload", HTTP_GET, [](AsyncWebServerRequest* req) {
     if (req->hasParam("name")) {
       String name = req->getParam("name")->value();
@@ -163,7 +160,7 @@ void setup() {
     }
   });
 
-  // GET /payloads — list available payloads and filesystem info
+ 
   server.on("/payloads", HTTP_GET, [](AsyncWebServerRequest* req) {
     FSInfo fs_info;
     LittleFS.info(fs_info);
@@ -186,7 +183,7 @@ void setup() {
     req->send(200, "application/json", json);
   });
 
-  // GET /delete?name=xxx - delete a payload script
+
   server.on("/delete", HTTP_GET, [](AsyncWebServerRequest* req) {
     if (req->hasParam("name")) {
       String name = req->getParam("name")->value();
@@ -202,7 +199,7 @@ void setup() {
     }
   });
 
-  // POST /save — save a new payload
+  
   server.on("/save", HTTP_POST, [](AsyncWebServerRequest* req) {
     if (req->hasParam("name", true) && req->hasParam("script", true)) {
       String name   = req->getParam("name", true)->value();
@@ -221,12 +218,12 @@ void setup() {
     }
   });
 
-  // GET /log — return current log
+
   server.on("/log", HTTP_GET, [](AsyncWebServerRequest* req) {
     req->send(200, "text/plain", logBuffer);
   });
 
-  // GET /status — ping
+ 
   server.on("/status", HTTP_GET, [](AsyncWebServerRequest* req) {
     req->send(200, "application/json",
       "{\"ap\":\"" + String(AP_SSID) + "\",\"ip\":\"192.168.4.1\",\"ready\":true}");
@@ -236,11 +233,9 @@ void setup() {
   appendLog("Server started. AP: " + String(AP_SSID));
 }
 
-// ──────────────────────────────────────────────────────────────────────────────
-// Loop
-// ──────────────────────────────────────────────────────────────────────────────
+
 void loop() {
-  // Read any unsolicited output from Pro Micro (non-blocking)
+ 
   while (Serial.available()) {
     char c = (char)Serial.read();
     if (c == '\n') {
@@ -251,7 +246,7 @@ void loop() {
       }
       serialBuffer = "";
     } else {
-      // Prevent buffer from growing infinitely on line noise
+      
       if (serialBuffer.length() < 200) {
         serialBuffer += c;
       }
